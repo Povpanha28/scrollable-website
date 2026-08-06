@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>X3 Fashion — Elevate Your Brand</title>
+  <!-- Premium Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Montserrat:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --font-serif: 'Playfair Display', serif;
+      --font-sans: 'Montserrat', sans-serif;
+      --color-gold: #dfd5c6;
+      --color-bg-dark: #0a0a0a;
+      --color-text-light: #ffffff;
+      --color-text-muted: rgba(255, 255, 255, 0.7);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: auto;
+    }
+
+    body {
+      width: 100%;
+      background-color: var(--color-bg-dark);
+      color: var(--color-text-light);
+      font-family: var(--font-sans);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Fixed Canvas in Background */
+    #canvas-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1;
+      background-color: #000;
+      pointer-events: none;
+    }
+
+    canvas {
+      display: block;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+    }
+
+    /* Scrollable Content Wrapper */
+    #content-wrapper {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+    }
+
+    /* Header / Navbar */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 30px 5%;
+      z-index: 10;
+      background: linear-gradient(to bottom, rgba(10, 10, 10, 0.8) 0%, rgba(10, 10, 10, 0) 100%);
+      backdrop-filter: blur(5px);
+    }
+
+    .navbar .logo {
+      font-family: var(--font-serif);
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: #fff;
+      text-decoration: none;
+    }
+
+    .navbar .nav-links {
+      display: flex;
+      gap: 30px;
+    }
+
+    .navbar .nav-links a {
+      font-family: var(--font-sans);
+      font-size: 11px;
+      font-weight: 500;
+      text-decoration: none;
+      color: var(--color-text-muted);
+      letter-spacing: 2px;
+      transition: color 0.3s ease;
+    }
+
+    .navbar .nav-links a:hover {
+      color: #fff;
+    }
+
+    /* Hero Section */
+    .hero-section {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 0 20px;
+    }
+
+    .hero-title {
+      font-family: var(--font-serif);
+      font-size: clamp(40px, 6vw, 85px);
+      font-weight: 600;
+      line-height: 1.1;
+      letter-spacing: 2px;
+      margin-bottom: 40px;
+      text-transform: uppercase;
+    }
+
+    .hero-title .serif-text {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-weight: 400;
+      text-transform: none;
+    }
+
+    .explore-btn {
+      display: inline-block;
+      font-family: var(--font-sans);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      padding: 15px 45px;
+      border-radius: 30px;
+      transition: all 0.3s ease;
+      background: rgba(0, 0, 0, 0.2);
+      backdrop-filter: blur(5px);
+    }
+
+    .explore-btn:hover {
+      background: #fff;
+      color: #000;
+      border-color: #fff;
+      box-shadow: 0 10px 20px rgba(255, 255, 255, 0.1);
+    }
+
+    /* Logos Bar */
+    .logos-bar {
+      width: 100%;
+      background-color: var(--color-gold);
+      color: #1a1a1a;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      flex-wrap: wrap;
+      padding: 25px 5%;
+      gap: 20px;
+      font-family: var(--font-serif);
+      font-weight: 700;
+      font-size: clamp(14px, 2vw, 20px);
+      letter-spacing: 1px;
+    }
+
+    .logos-bar span {
+      opacity: 0.85;
+      transition: opacity 0.3s;
+    }
+
+    .logos-bar span:hover {
+      opacity: 1;
+    }
+
+    /* Info Sections with Glassmorphism */
+    .info-section {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 100px 8%;
+    }
+
+    .align-right {
+      justify-content: flex-end;
+    }
+
+    .glass-card {
+      width: 100%;
+      max-width: 600px;
+      background: rgba(15, 15, 15, 0.65);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      padding: 50px;
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+      transform: translateY(30px);
+      opacity: 0;
+      transition: transform 1s cubic-bezier(0.16, 1, 0.3, 1), opacity 1s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .glass-card.visible {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .glass-card .section-tag {
+      font-family: var(--font-sans);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 3px;
+      color: var(--color-gold);
+      text-transform: uppercase;
+      margin-bottom: 20px;
+      display: block;
+    }
+
+    .glass-card h2 {
+      font-family: var(--font-serif);
+      font-size: clamp(28px, 4vw, 42px);
+      font-weight: 600;
+      line-height: 1.2;
+      margin-bottom: 25px;
+      letter-spacing: 1px;
+    }
+
+    .glass-card .serif-sub {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 20px;
+      line-height: 1.5;
+      color: var(--color-gold);
+      margin-bottom: 25px;
+    }
+
+    .glass-card p.description {
+      font-family: var(--font-sans);
+      font-size: 14px;
+      line-height: 1.8;
+      font-weight: 300;
+      color: var(--color-text-muted);
+    }
+
+    .feature-list {
+      margin-top: 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .feature-item {
+      display: flex;
+      gap: 15px;
+      align-items: flex-start;
+    }
+
+    .feature-item .check-icon {
+      color: var(--color-gold);
+      font-size: 18px;
+      margin-top: 2px;
+    }
+
+    .feature-item p {
+      font-family: var(--font-sans);
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--color-text-muted);
+    }
+
+    .feature-item p strong {
+      color: #fff;
+      font-weight: 500;
+    }
+
+    /* Footer Section */
+    .footer-section {
+      height: 60vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(to top, var(--color-gold) 0%, rgba(223, 213, 198, 0) 100%);
+      color: #1a1a1a;
+      text-align: center;
+      padding: 0 20px;
+    }
+
+    .footer-title {
+      font-family: var(--font-serif);
+      font-size: clamp(40px, 8vw, 110px);
+      font-weight: 700;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      opacity: 0.9;
+    }
+
+    /* Minimal progress indicator */
+    #loader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: #000000;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      transition: opacity 0.5s ease, visibility 0.5s ease;
+    }
+
+    #loader.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .loader-bar-bg {
+      width: 180px;
+      height: 3px;
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 3px;
+      overflow: hidden;
+      margin-top: 15px;
+    }
+
+    .loader-bar-fill {
+      height: 100%;
+      width: 0%;
+      background: #ffffff;
+      transition: width 0.15s ease-out;
+    }
+
+    .loader-status {
+      font-size: 12px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.7);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Loading Screen -->
+  <div id="loader">
+    <div class="loader-status" id="loader-text">Loading 0%</div>
+    <div class="loader-bar-bg">
+      <div class="loader-bar-fill" id="loader-fill"></div>
+    </div>
+  </div>
+
+  <!-- Background scrolling canvas -->
+  <div id="canvas-container">
+    <canvas id="anim-canvas"></canvas>
+  </div>
+
+  <!-- Scrollable content layer overlay -->
+  <div id="content-wrapper">
+    <!-- Navigation -->
+    <header class="navbar">
+      <a href="#" class="logo">X3 Fashion</a>
+      <nav class="nav-links">
+        <a href="#">HOME</a>
+        <a href="#about">ABOUT</a>
+        <a href="#services">SERVICES</a>
+        <a href="#program">PROGRAM</a>
+        <a href="#picks">MY TOP PICKS</a>
+        <a href="#contact">CONTACT</a>
+      </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <h1 class="hero-title">
+        ELEVATE<br>
+        YOUR BRAND<br>
+        <span class="serif-text">with style & elegance</span>
+      </h1>
+      <a href="#about" class="explore-btn">EXPLORE</a>
+    </section>
+
+    <!-- Brand Logos Bar -->
+    <div class="logos-bar">
+      <span>GLAMOUR</span>
+      <span>InStyle</span>
+      <span>VANITY FAIR</span>
+      <span>allure</span>
+      <span>Women'sHealth</span>
+      <span>COSMOPOLITAN</span>
+    </div>
+
+    <!-- About Section -->
+    <section id="about" class="info-section">
+      <div class="glass-card animate-on-scroll">
+        <span class="section-tag">ABOUT US</span>
+        <h2>HI, I'M X3 FASHION</h2>
+        <p class="serif-sub">I'm your ultimate companion to make a lasting impression in the digital realm</p>
+        <p class="description">
+          Proin nibh nisl condimentum id. Sem nulla pharetra diam sit amet nisl suscipit. Sagittis id consectetur purus ut faucibus pulvinar elementum integer enim. Vitae purus faucibus ornare suspendisse. In ornare quam viverra orci sagittis eu volutpat odio. Praesent semper feugiat nibh sed. Accumsan lacus vel facilisis volutpat est velit egestas dui id.
+        </p>
+      </div>
+    </section>
+
+    <!-- Services / Why Us Section -->
+    <section id="services" class="info-section align-right">
+      <div class="glass-card animate-on-scroll">
+        <span class="section-tag">WELCOME TO X3 FASHION'S WORLD...</span>
+        <h2>WHY X3 FASHION IS PERFECT FOR YOU?</h2>
+        <p class="serif-sub">With my sleek design and intuitive features, I embody the essence of modern sophistication</p>
+        <div class="feature-list">
+          <div class="feature-item">
+            <span class="check-icon">✓</span>
+            <p><strong>Stylish:</strong> With modern design and captivating visuals, I exude professionalism and class, ensuring you stand out.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer id="contact" class="footer-section">
+      <h2 class="footer-title">MAKE A LASTING</h2>
+    </footer>
+  </div>
+
+  <!-- Lenis Smooth Scroll CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+
+  <script>
+    const TOTAL_FRAMES = 100;
+    const images = new Array(TOTAL_FRAMES);
+    const canvas = document.getElementById('anim-canvas');
+    const ctx = canvas.getContext('2d');
+    const loader = document.getElementById('loader');
+    const loaderText = document.getElementById('loader-text');
+    const loaderFill = document.getElementById('loader-fill');
+
+    let loadedCount = 0;
+    let targetFrame = 0;
+    let currentFrame = 0;
+    let isReady = false;
+
+    // Path resolution
+    function getImagePath(index) {
+      const num = String(index).padStart(3, '0');
+      return `./New folder/please_make_the_motion_moving_${num}.jpg`;
+    }
+
+    function getFallbackPath(index) {
+      const num = String(index).padStart(3, '0');
+      return `./please_make_the_motion_moving_${num}.jpg`;
+    }
+
+    // High DPI Canvas Scaling
+    function resizeCanvas() {
+      const dpr = window.devicePixelRatio || 1;
+      canvas.width = window.innerWidth * dpr;
+      canvas.height = window.innerHeight * dpr;
+      renderCurrentFrame();
+    }
+
+    // Render single frame
+    function renderCurrentFrame() {
+      const frameIdx = Math.min(TOTAL_FRAMES - 1, Math.max(0, Math.round(currentFrame)));
+      const img = images[frameIdx];
+
+      if (!img || !img.complete || img.naturalWidth === 0) return;
+
+      const cw = canvas.width;
+      const ch = canvas.height;
+      ctx.clearRect(0, 0, cw, ch);
+
+      const imgRatio = img.naturalWidth / img.naturalHeight;
+      const canvasRatio = cw / ch;
+
+      let dw, dh, dx, dy;
+      if (canvasRatio > imgRatio) {
+        dw = cw;
+        dh = cw / imgRatio;
+        dx = 0;
+        dy = (ch - dh) / 2;
+      } else {
+        dh = ch;
+        dw = ch * imgRatio;
+        dx = (cw - dw) / 2;
+        dy = 0;
+      }
+
+      ctx.drawImage(img, dx, dy, dw, dh);
+    }
+
+    // Main animation lerp loop (smooth rendering)
+    function animate() {
+      const diff = targetFrame - currentFrame;
+      if (Math.abs(diff) > 0.001) {
+        currentFrame += diff * 0.12; // Lower value = smoother lerp
+        renderCurrentFrame();
+      } else if (currentFrame !== targetFrame) {
+        currentFrame = targetFrame;
+        renderCurrentFrame();
+      }
+      requestAnimationFrame(animate);
+    }
+
+    // Initialize Card Animations & Scroll Behavior
+    function setupScrollInteractions() {
+      const animatedCards = document.querySelectorAll('.animate-on-scroll');
+
+      const observerOptions = {
+        threshold: 0.15,
+        rootMargin: '0px 0px -100px 0px'
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, observerOptions);
+
+      animatedCards.forEach(card => observer.observe(card));
+    }
+
+    function checkAllLoaded() {
+      if (isReady) return;
+      isReady = true;
+
+      // Hide loader
+      loader.classList.add('hidden');
+
+      // Setup window resize
+      window.addEventListener('resize', resizeCanvas);
+
+      // Initialize Lenis Smooth Scroll
+      const lenis = new Lenis({
+        duration: 1.4,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        orientation: 'vertical',
+        gestureOrientation: 'vertical',
+        smoothWheel: true,
+        wheelMultiplier: 0.9,
+        smoothTouch: false,
+      });
+
+      // Synchronize Lenis scroll position with animation scrubbing
+      lenis.on('scroll', (e) => {
+        const scrollTop = e.scroll;
+        const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+        
+        if (maxScroll > 0) {
+          const progress = Math.max(0, Math.min(1, scrollTop / maxScroll));
+          targetFrame = progress * (TOTAL_FRAMES - 1);
+        }
+      });
+
+      function raf(time) {
+        lenis.raf(time);
+        requestAnimationFrame(raf);
+      }
+      requestAnimationFrame(raf);
+
+      // Initial frame setup
+      const initialScroll = window.scrollY || document.documentElement.scrollTop;
+      const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+      if (maxScroll > 0) {
+        targetFrame = (initialScroll / maxScroll) * (TOTAL_FRAMES - 1);
+        currentFrame = targetFrame;
+      }
+
+      setupScrollInteractions();
+      renderCurrentFrame();
+    }
+
+    // Preload images with root directory fallback
+    function loadImages() {
+      resizeCanvas();
+
+      for (let i = 0; i < TOTAL_FRAMES; i++) {
+        const img = new Image();
+        
+        const onSingleLoad = () => {
+          loadedCount++;
+          const pct = Math.round((loadedCount / TOTAL_FRAMES) * 100);
+          loaderText.textContent = `Loading ${pct}%`;
+          loaderFill.style.width = `${pct}%`;
+
+          if (i === 0) {
+            currentFrame = 0;
+            targetFrame = 0;
+            renderCurrentFrame();
+          }
+
+          if (loadedCount >= TOTAL_FRAMES) {
+            checkAllLoaded();
+          }
+        };
+
+        img.onload = onSingleLoad;
+        img.onerror = () => {
+          const fallbackImg = new Image();
+          fallbackImg.onload = () => {
+            images[i] = fallbackImg;
+            onSingleLoad();
+          };
+          fallbackImg.onerror = () => {
+            onSingleLoad();
+          };
+          fallbackImg.src = getFallbackPath(i);
+        };
+
+        img.src = getImagePath(i);
+        images[i] = img;
+      }
+
+      // Safety timeout
+      setTimeout(() => {
+        checkAllLoaded();
+      }, 2000);
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      loadImages();
+      requestAnimationFrame(animate);
+    });
+  </script>
+</body>
+</html>
+
