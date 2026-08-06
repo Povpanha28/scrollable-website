@@ -1,0 +1,332 @@
+/* ===========================
+   Canvas Container
+   =========================== */
+#canvas-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  background-color: #000;
+  pointer-events: none;
+}
+
+#canvas-container canvas {
+  display: block;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+}
+
+/* ===========================
+   Content Wrapper
+   =========================== */
+#content-wrapper {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+}
+
+/* ===========================
+   Navbar
+   =========================== */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30px 5%;
+  z-index: 10;
+  background: linear-gradient(to bottom, rgba(10, 10, 10, 0.8) 0%, rgba(10, 10, 10, 0) 100%);
+  backdrop-filter: blur(5px);
+}
+
+.navbar .logo {
+  font-family: var(--font-serif);
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: #fff;
+  text-decoration: none;
+}
+
+.navbar .nav-links {
+  display: flex;
+  gap: 30px;
+}
+
+.navbar .nav-links a {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 500;
+  text-decoration: none;
+  color: var(--color-text-muted);
+  letter-spacing: 2px;
+  transition: color 0.3s ease;
+}
+
+.navbar .nav-links a:hover {
+  color: #fff;
+}
+
+/* ===========================
+   Hero Section
+   =========================== */
+.hero-section {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 0 20px;
+}
+
+.hero-title {
+  font-family: var(--font-serif);
+  font-size: clamp(40px, 6vw, 85px);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: 2px;
+  margin-bottom: 40px;
+  text-transform: uppercase;
+}
+
+.hero-title .serif-text {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  text-transform: none;
+}
+
+.explore-btn {
+  display: inline-block;
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  padding: 15px 45px;
+  border-radius: 30px;
+  transition: all 0.3s ease;
+  background: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(5px);
+  cursor: pointer;
+}
+
+.explore-btn:hover {
+  background: #fff;
+  color: #000;
+  border-color: #fff;
+  box-shadow: 0 10px 20px rgba(255, 255, 255, 0.1);
+}
+
+/* ===========================
+   Logos Bar
+   =========================== */
+.logos-bar {
+  width: 100%;
+  background-color: var(--color-gold);
+  color: #1a1a1a;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 25px 5%;
+  gap: 20px;
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: clamp(14px, 2vw, 20px);
+  letter-spacing: 1px;
+}
+
+.logos-bar span {
+  opacity: 0.85;
+  transition: opacity 0.3s;
+}
+
+.logos-bar span:hover {
+  opacity: 1;
+}
+
+/* ===========================
+   Info Section / Glass Card
+   =========================== */
+.info-section {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 100px 8%;
+}
+
+.align-right {
+  justify-content: flex-end;
+}
+
+.glass-card {
+  width: 100%;
+  max-width: 600px;
+  background: rgba(15, 15, 15, 0.65);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 50px;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+  transform: translateY(30px);
+  opacity: 0;
+  transition: transform 1s cubic-bezier(0.16, 1, 0.3, 1), opacity 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-card.visible {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.glass-card .section-tag {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  color: var(--color-gold);
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  display: block;
+}
+
+.glass-card h2 {
+  font-family: var(--font-serif);
+  font-size: clamp(28px, 4vw, 42px);
+  font-weight: 600;
+  line-height: 1.2;
+  margin-bottom: 25px;
+  letter-spacing: 1px;
+}
+
+.glass-card .serif-sub {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 20px;
+  line-height: 1.5;
+  color: var(--color-gold);
+  margin-bottom: 25px;
+}
+
+.glass-card p.description {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 1.8;
+  font-weight: 300;
+  color: var(--color-text-muted);
+}
+
+.feature-list {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.feature-item {
+  display: flex;
+  gap: 15px;
+  align-items: flex-start;
+}
+
+.feature-item .check-icon {
+  color: var(--color-gold);
+  font-size: 18px;
+  margin-top: 2px;
+}
+
+.feature-item p {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--color-text-muted);
+}
+
+.feature-item p strong {
+  color: #fff;
+  font-weight: 500;
+}
+
+/* ===========================
+   Footer Section
+   =========================== */
+.footer-section {
+  height: 60vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(to top, var(--color-gold) 0%, rgba(223, 213, 198, 0) 100%);
+  color: #1a1a1a;
+  text-align: center;
+  padding: 0 20px;
+}
+
+.footer-title {
+  font-family: var(--font-serif);
+  font-size: clamp(40px, 8vw, 110px);
+  font-weight: 700;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  opacity: 0.9;
+}
+
+/* ===========================
+   Loader
+   =========================== */
+#loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #000000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+#loader.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.loader-bar-bg {
+  width: 180px;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 3px;
+  overflow: hidden;
+  margin-top: 15px;
+}
+
+.loader-bar-fill {
+  height: 100%;
+  width: 0%;
+  background: #ffffff;
+  transition: width 0.15s ease-out;
+}
+
+.loader-status {
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.7);
+}
